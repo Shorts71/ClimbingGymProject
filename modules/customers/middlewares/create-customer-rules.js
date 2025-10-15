@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const checkValidation = require("../../../shared/middlewares/check-validation");
+const checkValidation = require("../../../shared/check-validation");
 
 const createCustomerRules = [
     body("name")
