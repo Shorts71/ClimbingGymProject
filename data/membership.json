@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "1-Month Membership",
+        "duration (in days)": 30,
+        "cost($)": 76,
+        "rentalInclusion": false
+    },
+    {
+        "id": 2,
+        "name": "3-Month Membership",
+        "duration (in days)": 90,
+        "cost($)": 220,
+        "rentalInclusion": true
+    },
+    {
+        "id": 3,
+        "name": "12-Month Membership",
+        "duration (in days)": 365,
+        "cost($)": 670,
+        "rentalInclusion": true
+    },
+    {
+        "id": 4,
+        "name": "12-Month Membership",
+        "duration (in days)": 365,
+        "cost($)": 670,
+        "rentalInclusion": true
+    },
+    {
+        "id": 5,
+        "name": "12-Month Membership",
+        "duration (in days)": 365,
+        "cost($)": 670,
+        "rentalInclusion": true
+    }
+]
