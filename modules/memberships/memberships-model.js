@@ -7,6 +7,6 @@ const MembershipSchema = new mongoose.Schema({
     rentalInclusion: { type: Boolean, required: true }
 })
 
-const MembershipModel = new mongoose.model("Membership", MembershipSchema);
+const MembershipModel = new mongoose.model("Membership", MembershipSchema, "Memberships");
 
 module.exports = MembershipModel;

@@ -9,7 +9,7 @@ const membershipsRoute = Router();
 membershipsRoute.get("/memberships", async(req, res) => {
     const allMemberships = await MembershipModel.find();
     if (!allMemberships) res.json([]);
-    else res.json(allCustomers);
+    else res.json(allMemberships);
 })
 
 membershipsRoute.get("/memberships/:id", async (req, res) => {
@@ -39,7 +39,7 @@ membershipsRoute.put("/memberships/:id", updateMembershipRules, async (req, res)
     const membershipID = req.params.id
     const foundMembership = await MembershipModel.findById(membershipID);
     if (!foundMembership) {
-        return res.status(404).send(`Customer with ID ${membershipID} does not exist.`);
+        return res.status(404).send(`Membership with ID ${membershipID} does not exist.`);
     }
     const updatedMembership = await MembershipModel.findByIdAndUpdate(
         membershipID,
@@ -47,7 +47,7 @@ membershipsRoute.put("/memberships/:id", updateMembershipRules, async (req, res)
         { new: true }
     )
     if (!updatedMembership) {
-        return res.status(500).send(`Oops! Customer couldn't be updated!`);
+        return res.status(500).send(`Oops! Membership couldn't be updated!`);
     }
     res.json(updatedMembership);
 });

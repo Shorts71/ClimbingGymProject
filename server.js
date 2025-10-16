@@ -1,7 +1,8 @@
 // Project
 
-require("dotenv").config();
+require('dotenv').config();
 const express = require("express");
+const connectDB = require("./shared/connect-db");
 const hostname = "127.0.0.1";
 const port = 3000;
 
@@ -13,6 +14,8 @@ const { membershipsRoute } = require("./modules/memberships/memberships-routes")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(connectDB);
 
 app.use(productsRoute);
 app.use(customersRoute);

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-// Connection String: 
+// Connection String: mongodb+srv://Tyler:Kayano25@cluster0.cej20lq.mongodb.net/
 
 const dbUrl = process.env.DB_URL;
 
 async function connectDB(req, res, next) {
     try {
-        await mongoose.connect(dbUrl, { dbName: "MyOnlineShoppingDB"})
+        await mongoose.connect(dbUrl, { dbName: "PeakClimbingGym"})
         console.log("Database connected.");
         next();
     } catch (error) {
