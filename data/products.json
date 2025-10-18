@@ -14,7 +14,7 @@
     {
         "id": 2,
         "name": "Arc'teryx Skaha Harness",
-        "size": "medium",
+        "size": "small",
         "quantity": 6,
         "color": "Lampyre/Boxcar",
         "rating": 9.5,
@@ -25,38 +25,38 @@
     },
     {
         "id": 3,
-        "name": "Arc'teryx Skaha Harness",
-        "size": "medium",
-        "quantity": 6,
-        "color": "Lampyre/Boxcar",
-        "rating": 9.5,
-        "description": "Highly breathable harness with flexible cords and straps to ensure a comfortable belay climbing experience.",
-        "weight (g)": 283,
+        "name": "Petzl GriGri Belay Device",
+        "size": "N/A",
+        "quantity": 3,
+        "color": "Red/Orange",
+        "rating": 10,
+        "description": "The newest in GriGri, the camming device can accommodate ropes as thin as 8.5mm.",
+        "weight (g)": 175,
         "image": "image.png",
-        "price": 219.99
+        "price": 129.95
     },
     {
         "id": 4,
-        "name": "Arc'teryx Skaha Harness",
-        "size": "medium",
-        "quantity": 6,
-        "color": "Lampyre/Boxcar",
-        "rating": 9.5,
-        "description": "Highly breathable harness with flexible cords and straps to ensure a comfortable belay climbing experience.",
-        "weight (g)": 283,
+        "name": "MEC Edge Chalk Bag",
+        "size": "N/A",
+        "quantity": 34,
+        "color": "Black",
+        "rating": 7,
+        "description": "The perfect choice for your next climbing session.",
+        "weight (g)": 50,
         "image": "image.png",
-        "price": 219.99
+        "price": 16.95
     },
     {
         "id": 5,
-        "name": "Arc'teryx Skaha Harness",
-        "size": "medium",
-        "quantity": 6,
-        "color": "Lampyre/Boxcar",
-        "rating": 9.5,
-        "description": "Highly breathable harness with flexible cords and straps to ensure a comfortable belay climbing experience.",
-        "weight (g)": 283,
+        "name": "La Sportiva Genius Climbing Shoes",
+        "size": 8,
+        "quantity": 8,
+        "color": "Chalk",
+        "rating": "N/A",
+        "description": "With a precise fit and an edgeless sole, there is tons of smearing potential to be had.",
+        "weight (g)": 480,
         "image": "image.png",
-        "price": 219.99
+        "price": 259.95
     }
 ]

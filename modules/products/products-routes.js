@@ -8,36 +8,42 @@ const productsRoute = Router();
 
 productsRoute.get("/products", async(req, res) => {
     const allProducts = await ProductModel.find();
-    if (!allProducts) res.json([]);
-    else res.json(allProducts);
+    if (!allProducts) {
+        res.json([]);
+    } else {
+        console.log("All products found.");
+        res.status(200).json(allProducts);
+    } 
 })
 
 productsRoute.get("/products/:id", async (req, res) => {
     const productID = req.params.id;
     const foundProduct = await ProductModel.findById(productID);
     if (!foundProduct) {
-        return res.status(404).send(`Membership with ID ${productID} does not exist.`);
+        return res.status(404).send(`Product with ID ${productID} does not exist.`);
     } else {
+        console.log("Product found.");
         res.status(200).json(foundProduct);
     }
 })
 
-productsRoute.post("/products/:id", createProductRules, async (req, res) => {
+productsRoute.post("/products", createProductRules, async (req, res) => {
     const addedProduct = await ProductModel.create({
         name: "Scarpa Vapor V",
-        size: 11.5,
-        quantity: 18,
-        color: "Ocean/Yellow",
-        rating: 9.2,
+        size: 12,
+        quantity: 20,
+        color: "Ocean/Red",
+        rating: 9.4,
         description: "With small edges and a stiff midsole, this shoe will help you immensely with your climbing experience.",
         weight: 480,
         image: "image.png",
-        price: 229.99
+        price: 239.99
     });
     if (!addedProduct) {
-        return res.status(500).send(`Oops! Membership couldn't be added!`);
+        return res.status(500).send(`Oops! Product couldn't be added!`);
     }
-    res.json(addedProduct)
+    console.log("Product added.");
+    res.status(201).json(addedProduct)
 });
 
 productsRoute.put("/products/:id", updateProdcutRules, async (req, res) => {
@@ -54,20 +60,22 @@ productsRoute.put("/products/:id", updateProdcutRules, async (req, res) => {
     if (!updatedProduct) {
         return res.status(500).send(`Oops! Product couldn't be updated!`);
     }
-    res.json(updatedProduct);
+    console.log("Product updated.");
+    res.status(200).json(updatedProduct);
 });
 
 productsRoute.delete("/products/:id", async (req, res) => {
     const productID = req.params.id;
     const foundProduct = await ProductModel.findById(productID);
     if (!foundProduct) {
-        return res.status(404).send(`Customer with ID ${productID} does not exist.`);
+        return res.status(404).send(`Product with ID ${productID} does not exist.`);
     }
     const deletedProduct = await ProductModel.findByIdAndDelete(productID);
     if (!deletedProduct) {
         return res.status(500).send('Oops! Product could not be deleted!');
     }
-    res.json(deletedProduct);
+    console.log("Product deleted.");
+    res.status(200).json(deletedProduct);
 });
 
 

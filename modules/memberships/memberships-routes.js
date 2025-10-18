@@ -8,8 +8,13 @@ const membershipsRoute = Router();
 
 membershipsRoute.get("/memberships", async(req, res) => {
     const allMemberships = await MembershipModel.find();
-    if (!allMemberships) res.json([]);
-    else res.json(allMemberships);
+    if (!allMemberships) {
+        res.json([]);
+    } 
+    else {
+        console.log("All memberships found.");
+        res.status(200).json(allMemberships);
+    }
 })
 
 membershipsRoute.get("/memberships/:id", async (req, res) => {
@@ -18,11 +23,12 @@ membershipsRoute.get("/memberships/:id", async (req, res) => {
     if (!foundMembership) {
         return res.status(404).send(`Membership with ID ${membershipID} does not exist.`);
     } else {
+        console.log("Membership found.");
         res.status(200).json(foundMembership);
     }
 })
 
-membershipsRoute.post("/memberships/:id", createMembershipRules, async (req, res) => {
+membershipsRoute.post("/memberships", createMembershipRules, async (req, res) => {
     const addedMembership = await MembershipModel.create({
         name: "6-month Membership",
         duration: 180,
@@ -32,7 +38,8 @@ membershipsRoute.post("/memberships/:id", createMembershipRules, async (req, res
     if (!addedMembership) {
         return res.status(500).send(`Oops! Membership couldn't be added!`);
     }
-    res.json(addedMembership)
+    console.log("Membership added.");
+    res.status(201).json(addedMembership)
 });
 
 membershipsRoute.put("/memberships/:id", updateMembershipRules, async (req, res) => {
@@ -49,20 +56,22 @@ membershipsRoute.put("/memberships/:id", updateMembershipRules, async (req, res)
     if (!updatedMembership) {
         return res.status(500).send(`Oops! Membership couldn't be updated!`);
     }
-    res.json(updatedMembership);
+    console.log("Membership updated.");
+    res.status(200).json(updatedMembership);
 });
 
 membershipsRoute.delete("/memberships/:id", async (req, res) => {
     const membershipID = req.params.id;
     const foundMembership = await MembershipModel.findById(membershipID);
     if (!foundMembership) {
-        return res.status(404).send(`Customer with ID ${membershipID} does not exist.`);
+        return res.status(404).send(`Membership with ID ${membershipID} does not exist.`);
     }
     const deletedMembership = await MembershipModel.findByIdAndDelete(membershipID);
     if (!deletedMembership) {
-        return res.status(500).send('Oops! Customer could not be deleted!');
+        return res.status(500).send('Oops! Membership could not be deleted!');
     }
-    res.json(deletedMembership);
+    console.log("Membership deleted.");
+    res.status(200).json(deletedMembership);
 });
 
 
