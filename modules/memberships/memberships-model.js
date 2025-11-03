@@ -7,6 +7,8 @@ const MembershipSchema = new mongoose.Schema({
     rentalInclusion: { type: Boolean, required: true, default: false }
 })
 
+MembershipSchema.index({ name: "text" });
+
 const MembershipModel = new mongoose.model("Membership", MembershipSchema, "Memberships");
 
 module.exports = MembershipModel;

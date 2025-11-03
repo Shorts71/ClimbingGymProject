@@ -11,6 +11,8 @@ const ProductSchema = new mongoose.Schema({
     price: { type: Number, required: true, min: 0, default: 0 },
 })
 
+ProductSchema.index({ name: "text", description: "text" });
+
 const ProductModel = new mongoose.model("Product", ProductSchema, "Products");
 
 module.exports = ProductModel;
