@@ -7,7 +7,6 @@ const CustomerModel = require("./customers-model");
 const customersRoute = Router();
 
 customersRoute.get("/customers", async (req, res) => {
-    console.log("GET /customers called");
     const allCustomers = await CustomerModel.find();
     if (!allCustomers) {
         res.json([]);
