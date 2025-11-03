@@ -8,13 +8,50 @@ const membershipsRoute = Router();
 
 membershipsRoute.get("/memberships", async(req, res) => {
     const allMemberships = await MembershipModel.find();
-    if (!allMemberships) {
-        res.json([]);
-    } 
-    else {
-        console.log("All memberships found.");
-        res.status(200).json(allMemberships);
+    // if (!allMemberships) {
+    //     res.json([]);
+    // } 
+    // else {
+    //     console.log("All memberships found.");
+    //     res.status(200).json(allMemberships);
+    // }
+
+    const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5;
+
+    await MembershipModel.syncIndexes();
+
+    const filteredMemberships = await MembershipModel.find(
+        { $text: { $search: search }},
+        {
+            name: 1,
+            duration: 1,
+            price: 1,
+        },
+        {
+            sort: {duration: -1 },
+            skip: (page - 1) * limit,
+            limit: limit,
+        }
+    );
+
+    const totalCount = await MembershipModel.countDocuments({
+        $or: [
+            { membership_name: { $regex: `${search}`, $options: "i"}},
+        ]
+    });
+
+    if (search === "") {
+        res.json(allMemberships);
     }
+
+    res.json({
+        currentPage: page,
+        totalPages: totalCount / limit,
+        dataPerPage: filteredMemberships.length,
+        data: filteredMemberships,
+    });
 })
 
 membershipsRoute.get("/memberships/:id", async (req, res) => {
