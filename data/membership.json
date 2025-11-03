@@ -2,36 +2,57 @@
     {
         "id": 1,
         "name": "1-Month Membership",
-        "duration (in days)": 30,
+        "duration": 30,
         "cost($)": 76,
-        "rentalInclusion": false
+        "rentalInclusion": true
     },
     {
         "id": 2,
         "name": "3-Month Membership",
-        "duration (in days)": 90,
+        "duration": 90,
         "cost($)": 220,
         "rentalInclusion": true
     },
     {
         "id": 3,
-        "name": "12-Month Membership",
-        "duration (in days)": 365,
-        "cost($)": 670,
+        "name": "6-Month Membership",
+        "duration": 180,
+        "cost($)": 410,
         "rentalInclusion": true
     },
     {
         "id": 4,
-        "name": "12-Month Membership",
-        "duration (in days)": 365,
-        "cost($)": 670,
-        "rentalInclusion": true
+        "name": "9-Month Membership",
+        "duration": 270,
+        "cost($)": 564,
+        "rentalInclusion": false
     },
     {
         "id": 5,
         "name": "12-Month Membership",
-        "duration (in days)": 365,
+        "duration": 365,
         "cost($)": 670,
+        "rentalInclusion": false
+    },
+    {
+        "id": 6,
+        "name": "Student Membership",
+        "duration": 180,
+        "cost($)": 275,
+        "rentalInclusion": false
+    },
+    {
+        "id": 7,
+        "name": "Beginner Membership",
+        "duration": 14,
+        "cost($)": 80,
         "rentalInclusion": true
+    },
+    {
+        "id": 8,
+        "name": "Climbing Team Membership",
+        "duration": 365,
+        "cost($)": 500,
+        "rentalInclusion": false
     }
 ]

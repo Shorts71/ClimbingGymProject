@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "name": "Scarpa Vapor V",
+        "name": "Scarpa Vapor V Climbing Shoes",
         "size": 11.5,
         "quantity": 18,
         "color": "Ocean/Yellow",
@@ -53,9 +53,69 @@
         "size": 8,
         "quantity": 8,
         "color": "Chalk",
-        "rating": "N/A",
+        "rating": 8.5,
         "description": "With a precise fit and an edgeless sole, there is tons of smearing potential to be had.",
         "weight (g)": 480,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 6,
+        "name": "Scarpa Drago XT Climbing Shoes",
+        "size": 8,
+        "quantity": 8,
+        "color": "Black/Iron",
+        "rating": 9.7,
+        "description": "The Scarpa Drago XT is the latest in Scarpa climbing shoes, sure to boost your climbing skills.",
+        "weight (g)": 400,
+        "image": "image.png",
+        "price": 258.95
+    },
+    {
+        "id": 7,
+        "name": "Scarpa Instinct VSR Climbing Shoes",
+        "size": 9,
+        "quantity": 2,
+        "color": "Black/Azure",
+        "rating": 8,
+        "description": "A shoe designed with lighter climbers in mind, great for steep routes and training sessions.",
+        "weight (g)": 460,
+        "image": "image.png",
+        "price": 238.95
+    },
+    {
+        "id": 8,
+        "name": "Evolv Phantom Pro LV Climbing Shoes",
+        "size": 8,
+        "quantity": 5,
+        "color": "White/Black",
+        "rating": 8.2,
+        "description": "Evolv's most aggressive shoe yet, great for staying on tiny footholds and dynamic movements.",
+        "weight (g)": 570,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 9,
+        "name": "Petzl Corax Harness",
+        "size": "Medium",
+        "quantity": 8,
+        "color": "Dark Grey",
+        "rating": 9.1,
+        "description": "A great harness for both top-rope and lead climbing.",
+        "weight (g)": 89,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 10,
+        "name": "Blue Ice Choucas Light Harness",
+        "size": 8,
+        "quantity": 8,
+        "color": "Ice",
+        "rating": 7.8,
+        "description": "Great for outdoor lead climbs.",
+        "weight (g)": 89,
         "image": "image.png",
         "price": 259.95
     }
