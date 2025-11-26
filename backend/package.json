@@ -14,7 +14,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "vite": "^6.4.1"
   },
   "devDependencies": {
     "dotenv": "^17.2.3"
