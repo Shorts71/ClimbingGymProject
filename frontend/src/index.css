@@ -1,0 +1,19 @@
+/* ==== THEME COLORS ==== */
+:root {
+  --primary: #086100;
+  --primary-hover: #0056b3;
+  --secondary: #554c00;
+  --accent: #ffffff;
+  --text-color: #000000;
+  --background-color: #fafafa;
+}
+
+/* ==== GLOBAL STYLES ==== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 20px;
+}

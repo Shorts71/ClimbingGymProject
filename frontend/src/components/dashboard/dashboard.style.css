@@ -1,0 +1,13 @@
+.navbar-links {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: gray;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.navlink {
+    padding: 0px 20px;
+    color: white;
+}

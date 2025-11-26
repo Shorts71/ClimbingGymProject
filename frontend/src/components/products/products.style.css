@@ -1,0 +1,66 @@
+.sortbar {
+    width: 300px;
+    word-wrap: break-word;
+    border: 2px solid black;
+    height: 800px;
+    justify-content: left;
+    text-align: left;
+}
+
+.product-page-container {
+    /* display: grid;
+    /* grid-template-columns: 1fr 7fr; */
+    /* width: 100%; */
+}
+
+.ProductDisplay {
+    display: flex;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.ProductMainDetails {
+
+}
+
+.ProductSecondaryDetails {
+    width: 60%;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.category-and-price {
+    width: 100%;
+    text-align: left;
+    font-size: 24px;
+}
+
+.ProductDisplayImage {
+    margin: 0 auto;
+}
+
+.CRUDBUTTONS {
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+}
+
+.productForm {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 32px;
+}
+
+.AddProductForm {
+    margin: 50px auto;
+    width: 100%;
+    text-align: center;
+}
+
+.inputfield {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+}

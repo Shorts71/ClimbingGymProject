@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "name": "Scarpa Vapor V Climbing Shoes",
+        "color": "Ocean/Yellow",
+        "category": "Climbing Shoes",
+        "rating": 9.2,
+        "description": "With small edges and a stiff midsole, this shoe will help you immensely with your climbing experience.",
+        "weight": 480,
+        "image": "/assets/scarpavaporv.jpg",
+        "price": 229.99
+    },
+    {
+        "id": 2,
+        "name": "Arc'teryx Skaha Harness",
+        "color": "Lampyre/Boxcar",
+        "category": "Harness",
+        "rating": 9.5,
+        "description": "Highly breathable harness with flexible cords and straps to ensure a comfortable belay climbing experience.",
+        "weight": 283,
+        "image": "image.png",
+        "price": 219.99
+    },
+    {
+        "id": 3,
+        "name": "Petzl GriGri Belay Device",
+        "color": "Red/Orange",
+        "category": "Belay Gear",
+        "rating": 10,
+        "description": "The newest in GriGri, this camming device can accommodate ropes as thin as 8.5mm.",
+        "weight": 175,
+        "image": "image.png",
+        "price": 129.95
+    },
+    {
+        "id": 4,
+        "name": "MEC Edge Chalk Bag",
+        "color": "Black",
+        "category": "Chalk",
+        "rating": 7,
+        "description": "The perfect choice for your next climbing session.",
+        "weight": 50,
+        "image": "image.png",
+        "price": 16.95
+    },
+    {
+        "id": 5,
+        "name": "La Sportiva Genius Climbing Shoes",
+        "color": "Chalk",
+        "category": "Climbing Shoes",
+        "rating": 8.5,
+        "description": "With a precise fit and an edgeless sole, there is tons of smearing potential to be had.",
+        "weight": 480,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 6,
+        "name": "Scarpa Drago XT Climbing Shoes",
+        "color": "Black/Iron",
+        "category": "Climbing Shoes",
+        "rating": 9.7,
+        "description": "The Scarpa Drago XT is the latest in Scarpa climbing shoes, sure to boost your climbing skills.",
+        "weight": 400,
+        "image": "image.png",
+        "price": 258.95
+    },
+    {
+        "id": 7,
+        "name": "Scarpa Instinct VSR Climbing Shoes",
+        "color": "Black/Azure",
+        "category": "Climbing Shoes",
+        "rating": 8,
+        "description": "A shoe designed with lighter climbers in mind, great for steep routes and training sessions.",
+        "weight": 460,
+        "image": "image.png",
+        "price": 238.95
+    },
+    {
+        "id": 8,
+        "name": "Evolv Phantom Pro LV Climbing Shoes",
+        "color": "White/Black",
+        "category": "Climbing Shoes",
+        "rating": 8.2,
+        "description": "Evolv's most aggressive shoe yet, great for staying on tiny footholds and dynamic movements.",
+        "weight": 570,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 9,
+        "name": "Petzl Corax Harness",
+        "color": "Dark Grey",
+        "category": "Harness",
+        "rating": 9.1,
+        "description": "A great harness for both top-rope and lead climbing.",
+        "weight": 89,
+        "image": "image.png",
+        "price": 259.95
+    },
+    {
+        "id": 10,
+        "name": "Blue Ice Choucas Light Harness",
+        "color": "Ice",
+        "category": "Harness",
+        "rating": 7.8,
+        "description": "Great for outdoor lead climbs.",
+        "weight": 89,
+        "image": "image.png",
+        "price": 259.95
+    }
+]
