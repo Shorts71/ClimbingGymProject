@@ -6,6 +6,7 @@ import HomePage from "./components/home/HomePage";
 import ProductDisplay from "./components/products/productDisplay/ProductDisplay";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddProductPage from "./components/products/AddProduct";
+import EditProductPage from "./components/products/EditProduct";
 
 function App() {
   const [productsInCart, setProductInCart] = useState([]);
@@ -26,6 +27,7 @@ function App() {
             element={<ProductsPage onAddToCartClick={addProductInCart} />}
           />
           <Route path="/add-products" element={<AddProductPage/>} />
+          <Route path="/edit-product/:id" element={<EditProductPage/>} />
           <Route path="/product/:id" element={<ProductDisplay onAddToCartClick={addProductInCart} />} />
         </Routes>
       </BrowserRouter>

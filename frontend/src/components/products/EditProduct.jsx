@@ -1,13 +1,16 @@
 import { useCallback, useState, useEffect } from "react";
 import Button from "../shared/button";
 import useApi from "../shared/API";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import './products.style.css';
 
-function AddProductPage() {
+function EditProductPage() {
     const navigate = useNavigate();
 
+    const id = useParams();
+
     const [product, setProduct] = useState({
+        _id: "",
         name: "",
         category: "",
         price: "",
@@ -15,9 +18,9 @@ function AddProductPage() {
     });
 
     const { loading, data, error, formError, refetch } = useApi(
-        "http://localhost:3000/products",
+        product._id ? `http://localhost:3000/products/${product._id}` : null,
         {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -26,12 +29,18 @@ function AddProductPage() {
     );
 
     useEffect(() => {
+        if (!id) {
+            return;
+        }
+        fetch(`http://localhost:3000/products/${product._id}`)
+        .then(res => res.json())
+        .then(data => setProduct(data));
         if (!data) {
             return;
         }
-        alert("Product successfully added!");
+        alert("Product successfully updated!");
         navigate("/products");
-    }, [data, navigate]);
+    }, [data, navigate, product, id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,10 +48,10 @@ function AddProductPage() {
     };
 
     const handleSubmit = useCallback(
+        
         (e) => {
             e.preventDefault();
-            const body = product;
-            refetch(body);
+            refetch(product);
         }, [product, refetch]
     );
 
@@ -148,7 +157,7 @@ function AddProductPage() {
                 </div>
 
                 <Button type="submit">
-                    {loading ? "Adding..." : "Add"}
+                    {loading ? "Updating..." : "Confirm"}
                 </Button>
             </form>
         </div>
@@ -156,4 +165,4 @@ function AddProductPage() {
     
 }
 
-export default AddProductPage;
+export default EditProductPage;

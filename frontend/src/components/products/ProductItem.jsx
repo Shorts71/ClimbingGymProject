@@ -5,9 +5,9 @@ const ProductItem = (props) => {
     const { product, onAddToCartClick } = props;
     const navigate = useNavigate();
 
-    const viewProduct = () => {
-      navigate(`/product/${product._id}`);
-    };
+    const editProduct = () => {
+      navigate(`/edit-product/${product._id}`);
+    }
 
     return (
     <div className="product">
@@ -17,6 +17,7 @@ const ProductItem = (props) => {
         <strong>$</strong>{product.price}
       </p>
       <p style={{ fontSize: 20 }}><strong>Rating: {product.rating}/10</strong></p>
+      <Button text="Edit" onClick={editProduct}/>
       <Button text="Add to Cart" onClick={() => onAddToCartClick(product)} />
     </div>
     );

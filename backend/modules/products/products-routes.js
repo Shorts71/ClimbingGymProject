@@ -132,7 +132,14 @@ productsRoute.put("/products/:id", updateProdcutRules, async (req, res) => {
   }
   const updatedProduct = await ProductModel.findByIdAndUpdate(
     productID,
-    { $set: { name: "Scarpa Instinct VS Climbing Shoes" } },
+    { $set: { 
+      name: updatedProduct.name,
+      category: updatedProduct.category,
+      rating: updatedProduct.rating,
+      description: updatedProduct.description,
+      weight: updatedProduct.weight,
+      price: updatedProduct.price,
+    } },
     { new: true }
   );
   if (!updatedProduct) {
