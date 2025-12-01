@@ -1,56 +1,12 @@
 const { Router } = require("express");
 const createProductRules = require("./middlewares/create-product-rules");
-const updateProdcutRules = require("./middlewares/update-product-rules");
+const updateProductRules = require("./middlewares/update-product-rules");
 
 const ProductModel = require("./products-model");
 
 const productsRoute = Router();
 
 productsRoute.get("/products", async (req, res, next) => {
-  // try {
-  //   const allProducts = await ProductModel.find();
-
-  //   const search = req.query.search || "";
-  //   const page = parseInt(req.query.page) || 1;
-  //   const limit = 20;
-
-  //   await ProductModel.syncIndexes();
-
-  //   const filteredProducts = await ProductModel.find(
-  //     { $text: { $search: search } },
-  //     {
-  //       product_name: 1,
-  //       price: 1,
-  //       color: 1,
-  //       rating: 1,
-  //     },
-  //     {
-  //       sort: { createdAt: -1 },
-  //       skip: (page - 1) * limit,
-  //       limit: limit,
-  //     }
-  //   );
-
-  //   const totalCount = await ProductModel.countDocuments({
-  //     $or: [
-  //       { product_name: { $regex: `${search}`, $options: "i" } },
-  //       { description: { $regex: `${search}`, $options: "i" } },
-  //     ],
-  //   });
-
-  //   if (search === "") {
-  //     return res.json(allProducts);
-  //   } else {
-  //     return res.json({
-  //       currentPage: page,
-  //       totalPages: totalCount / limit,
-  //       dataPerPage: filteredProducts.length,
-  //       data: filteredProducts,
-  //     });
-  //   }
-  // } catch (error) {
-  //   next(error);
-  // }
   try {
     const search = req.query.search || "";
     const page = parseInt(req.query.page) || 1;
@@ -124,8 +80,9 @@ productsRoute.post("/products", createProductRules, async (req, res) => {
   res.status(201).json(addedProduct);
 });
 
-productsRoute.put("/products/:id", updateProdcutRules, async (req, res) => {
+productsRoute.put("/products/:id", updateProductRules, async (req, res) => {
   const productID = req.params.id;
+  const newProduct = req.body;
   const foundProduct = await ProductModel.findById(productID);
   if (!foundProduct) {
     return res.status(404).send(`Product with ID ${productID} does not exist.`);
@@ -133,13 +90,13 @@ productsRoute.put("/products/:id", updateProdcutRules, async (req, res) => {
   const updatedProduct = await ProductModel.findByIdAndUpdate(
     productID,
     { $set: { 
-      name: updatedProduct.name,
-      category: updatedProduct.category,
-      rating: updatedProduct.rating,
-      description: updatedProduct.description,
-      weight: updatedProduct.weight,
-      price: updatedProduct.price,
-    } },
+      name: newProduct.name,
+      category: newProduct.category,
+      rating: newProduct.rating,
+      description: newProduct.description,
+      weight: newProduct.weight,
+      price: newProduct.price,
+    }, },
     { new: true }
   );
   if (!updatedProduct) {

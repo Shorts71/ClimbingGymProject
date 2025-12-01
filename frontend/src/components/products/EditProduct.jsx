@@ -7,18 +7,19 @@ import './products.style.css';
 function EditProductPage() {
     const navigate = useNavigate();
 
-    const id = useParams();
+    const { id } = useParams();
 
     const [product, setProduct] = useState({
-        _id: "",
         name: "",
         category: "",
         price: "",
         description: "",
+        weight: "",
+        rating: "",
     });
 
     const { loading, data, error, formError, refetch } = useApi(
-        product._id ? `http://localhost:3000/products/${product._id}` : null,
+        id ? `http://localhost:3000/products/${id}` : null,
         {
             method: "PUT",
             headers: {
@@ -32,15 +33,19 @@ function EditProductPage() {
         if (!id) {
             return;
         }
-        fetch(`http://localhost:3000/products/${product._id}`)
+        fetch(`http://localhost:3000/products/${id}`)
         .then(res => res.json())
         .then(data => setProduct(data));
+        
+    }, [id]);
+
+    useEffect(() => {
         if (!data) {
             return;
         }
         alert("Product successfully updated!");
         navigate("/products");
-    }, [data, navigate, product, id]);
+    }, [data, navigate])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -157,7 +162,7 @@ function EditProductPage() {
                 </div>
 
                 <Button type="submit">
-                    {loading ? "Updating..." : "Confirm"}
+                    {loading ? "Updating..." : "Update"}
                 </Button>
             </form>
         </div>

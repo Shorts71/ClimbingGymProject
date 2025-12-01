@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 const checkValidation = require("../../../shared/check-validation");
 
-const createMembershipRules = [
+const createProductRules = [
     body("name")
         .isString()
         .withMessage("Name must be a string")
@@ -44,4 +44,4 @@ const createMembershipRules = [
     checkValidation,
 ]
 
-module.exports = createMembershipRules;
+module.exports = createProductRules;

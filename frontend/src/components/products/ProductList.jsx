@@ -30,7 +30,7 @@ const ProductList = (props) => {
   return (
     <>
     <div className="CRUDBUTTONS">
-      <Button text="Add to Cart" onClick={() => navigate("/add-products")}/>
+      <Button text="Add Product" onClick={() => navigate("/add-products")}/>
     </div>
     <div id="product-list-container">
       {data?.data?.map((product, index) => (
