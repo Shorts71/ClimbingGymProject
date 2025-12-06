@@ -63,7 +63,7 @@ const ProductItem = (props) => {
         <strong>Rating: {product.rating}/10</strong>
       </p>
       <Button text="Edit" onClick={editProduct} />
-      <Button text="Delete" onClick={deleteProduct}/>
+      <Button text="Delete" onClick={deleteProduct} />
       <Button text="Add to Cart" onClick={() => onAddToCartClick(product)} />
     </div>
   );

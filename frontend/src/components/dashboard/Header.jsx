@@ -1,6 +1,7 @@
 import Button from "../shared/button";
 import PeakLogo from "../../assets/PeakLogo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "./dashboard.style.css";
 
 const Header = (props) => {
@@ -16,7 +17,9 @@ const Header = (props) => {
                         The Peak Climbing Gym Shop
                         </Link>
                     </h2>
-                </div>   
+                </div>
+                <Link to="/register" className="navLink">Register</Link>
+                <Link to="/login" className="navLink">Login</Link>
                 <Button className="CartButton" text={`Cart(${productsInCart.length})`} onClick={() => {}} />
             </header>
             <div className="navbar-links">

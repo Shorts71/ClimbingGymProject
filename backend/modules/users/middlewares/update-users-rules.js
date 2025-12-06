@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
-const checkValidation = require("../../../shared/check-validation");
+const checkValidation = require("../../../shared/middlewares/check-validation");
 
-const updateCustomerRules = [
+const updateUserRules = [
   body("name")
     .optional()
     .isString()
@@ -13,6 +13,14 @@ const updateCustomerRules = [
     .isEmail()
     .withMessage("Email must be a valid email address")
     .normalizeEmail(),
+
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 6 })
+    .withMessage("Password must be 6 or more characters")
+    .matches(/\d/)
+    .withMessage("Password must contain at least one number"),
 
   body("phone")
     .optional()
@@ -28,4 +36,4 @@ const updateCustomerRules = [
   checkValidation,
 ];
 
-module.exports = updateCustomerRules;
+module.exports = updateUserRules;

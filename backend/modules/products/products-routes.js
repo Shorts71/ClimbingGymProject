@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const createProductRules = require("./middlewares/create-product-rules");
 const updateProductRules = require("./middlewares/update-product-rules");
+const authorize = require("../../shared/middlewares/authorize");
 
 const ProductModel = require("./products-model");
 
@@ -62,62 +63,111 @@ productsRoute.get("/products/:id", async (req, res) => {
   }
 });
 
-productsRoute.post("/products", createProductRules, async (req, res) => {
-  const newProduct = req.body;
-  const addedProduct = await ProductModel.create({
-    name: newProduct.name,
-    category: newProduct.category,
-    rating: newProduct.rating,
-    description: newProduct.description,
-    weight: newProduct.weight,
-    // image: newProduct.image,
-    price: newProduct.price,
-  });
-  if (!addedProduct) {
-    return res.status(500).send(`Oops! Product couldn't be added!`);
-  }
-  console.log("Product added.");
-  res.status(201).json(addedProduct);
-});
+productsRoute.post(
+  "/products",
+  createProductRules,
+  authorize(["admin", "seller"]),
+  async (req, res) => {
+    const currentUser = req.account;
 
-productsRoute.put("/products/:id", updateProductRules, async (req, res) => {
-  const productID = req.params.id;
-  const newProduct = req.body;
-  const foundProduct = await ProductModel.findById(productID);
-  if (!foundProduct) {
-    return res.status(404).send(`Product with ID ${productID} does not exist.`);
-  }
-  const updatedProduct = await ProductModel.findByIdAndUpdate(
-    productID,
-    { $set: { 
+    if (currentUser.roles(!includes("admin", "seller"))) {
+      return res.status(403).send({
+        errorMessage: "User does not have valid authentication to add products",
+        currentRoles: currentUser.roles,
+      });
+    }
+
+    const newProduct = req.body;
+    const addedProduct = await ProductModel.create({
       name: newProduct.name,
       category: newProduct.category,
       rating: newProduct.rating,
       description: newProduct.description,
       weight: newProduct.weight,
+      // image: newProduct.image,
       price: newProduct.price,
-    }, },
-    { new: true }
-  );
-  if (!updatedProduct) {
-    return res.status(500).send(`Oops! Product couldn't be updated!`);
-  }
-  console.log("Product updated.");
-  res.status(200).json(updatedProduct);
-});
+    });
 
-productsRoute.delete("/products/:id", async (req, res) => {
-  const productID = req.params.id;
-  const foundProduct = await ProductModel.findById(productID);
-  if (!foundProduct) {
-    return res.status(404).send(`Product with ID ${productID} does not exist.`);
+    if (!addedProduct) {
+      return res.status(500).send(`Oops! Product couldn't be added!`);
+    }
+    console.log("Product added.");
+    res.status(201).json(addedProduct);
   }
-  const deletedProduct = await ProductModel.findByIdAndDelete(productID);
-  if (!deletedProduct) {
-    return res.status(500).send("Oops! Product could not be deleted!");
+);
+
+productsRoute.put(
+  "/products/:id",
+  updateProductRules,
+  authorize(["admin", "seller", "staff"]),
+  async (req, res) => {
+    const currentUser = req.account;
+
+    if (currentUser.roles(!includes("admin", "seller"))) {
+      return res.status(403).send({
+        errorMessage: "User does not have valid authentication to add products",
+        currentRoles: currentUser.roles,
+      });
+    }
+
+    const productID = req.params.id;
+    const newProduct = req.body;
+    const foundProduct = await ProductModel.findById(productID);
+    if (!foundProduct) {
+      return res
+        .status(404)
+        .send(`Product with ID ${productID} does not exist.`);
+    }
+    const updatedProduct = await ProductModel.findByIdAndUpdate(
+      productID,
+      {
+        $set: {
+          name: newProduct.name,
+          category: newProduct.category,
+          rating: newProduct.rating,
+          description: newProduct.description,
+          weight: newProduct.weight,
+          price: newProduct.price,
+          // image: newProduct.image,
+        },
+      },
+      { new: true }
+    );
+    if (!updatedProduct) {
+      return res.status(500).send(`Oops! Product couldn't be updated!`);
+    }
+    console.log("Product updated.");
+    res.status(200).json(updatedProduct);
   }
-  console.log("Product deleted.");
-  res.status(200).json(deletedProduct);
-});
+);
+
+productsRoute.delete(
+  "/products/:id",
+  authorize(["admin", "seller", "staff"]),
+  async (req, res) => {
+    const currentUser = req.account;
+
+    if (currentUser.roles(!includes("admin", "seller"))) {
+      return res.status(403).send({
+        errorMessage: "User does not have valid authentication to add products",
+        currentRoles: currentUser.roles,
+      });
+    }
+
+    const productID = req.params.id;
+    const foundProduct = await ProductModel.findById(productID);
+    if (!foundProduct) {
+      return res
+        .status(404)
+        .send(`Product with ID ${productID} does not exist.`);
+    }
+    const deletedProduct = await ProductModel.findByIdAndDelete(productID);
+    if (!deletedProduct) {
+      return res.status(500).send("Oops! Product could not be deleted!");
+    }
+    console.log("Product deleted.");
+    res.status(200).json(deletedProduct);
+  }
+);
 
 module.exports = { productsRoute };
