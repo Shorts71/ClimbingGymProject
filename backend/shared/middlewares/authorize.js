@@ -12,15 +12,28 @@ const customerStrategy = (authData) => {
   return roles && roles === "customer";
 };
 
+const sellerStrategy = (authData) => {
+  const { roles } = authData;
+  return roles && roles === "seller";
+};
+
+const staffStrategy = (authData) => {
+  const { roles } = authData;
+  return roles && roles === "staff";
+};
+
 const authStrategies = {
   admin: adminStrategy,
   customer: customerStrategy,
+  seller: sellerStrategy,
+  staff: staffStrategy,
 };
 
 function authorize(requiredRoles = ["customer"]) {
   function authorizeMiddleware(req, res, next) {
     try {
-      const encoded = req.get("Authorization");
+      const encoded = req.cookies.token;
+      console.log("Cookie token:", encoded);
       const decoded = decodeToken(encoded);
       if (!decoded || !decoded.roles) {
         return res.status(401).json({

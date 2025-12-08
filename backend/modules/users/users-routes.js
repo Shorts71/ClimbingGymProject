@@ -12,6 +12,7 @@ const usersRoute = Router();
 // Tokens/Password
 const { matchPassword } = require("../../shared/password-utils");
 const { encodeToken } = require("../../shared/jwt-utils");
+const { decodeToken } = require("../../shared/jwt-utils");
 // OTP/EMail
 const { randomNumberOfDigits } = require("../../shared/compute-utils");
 const OTPModel = require("../otp-model");
@@ -22,7 +23,7 @@ const sendEmail = require("../../shared/email-utils");
 usersRoute.get("/users", authorize(["admin"]), async (req, res) => {
   const currentUser = req.account;
 
-  if (currentUser.roles(!includes("admin"))) {
+  if (!currentUser.roles.includes("admin")) {
     return res.status(403).send({
       errorMessage: "User does not have valid authentication",
       currentRoles: currentUser.roles,
@@ -46,7 +47,7 @@ usersRoute.get("/users", authorize(["admin"]), async (req, res) => {
 
 usersRoute.get(
   "/users/:id",
-  authorize(["admin", "customer", "seller", "staff"]),
+  authorize(["admin", "staff"]),
   async (req, res) => {
     const currentUser = req.account;
     const userID = req.params.id;
@@ -260,7 +261,29 @@ usersRoute.post("/users/verify-login", verifyLoginRules, async (req, res) => {
       delete user.role;
     }
     const token = encodeToken(user);
-    res.json({ user, token });
+    res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 24,
+  });
+
+  res.json({ user });
+  }
+});
+
+usersRoute.get("/me", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ errorMessage: "Not logged in" });
+
+    const decoded = decodeToken(token);
+    if (!decoded) return res.status(401).json({ errorMessage: "Invalid token" });
+
+    res.json({ user: decoded });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errorMessage: "Server error" });
   }
 });
 

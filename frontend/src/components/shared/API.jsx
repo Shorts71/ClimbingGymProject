@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useContext, useEffect, useReducer } from "react";
 
 const initialState = {
   loading: false,
@@ -46,6 +46,10 @@ function useApi(url, options = {}, { auto = true } = {}) {
       try {
         const res = await fetch(url, {
           ...options,
+          credentials: "include",
+          headers: {
+            ...options.headers,
+          },
           body,
         });
         const parsedBody = await res.json();

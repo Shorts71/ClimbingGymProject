@@ -6,8 +6,6 @@ const expiresIn = "1h";
 
 const decodeToken = (token) => {
   if (!token) return;
-  token = token.split(" ")[1];
-  if (!token) return;
   const secret = process.env.TOKEN_SECRET;
   return verify(token, secret);
 };

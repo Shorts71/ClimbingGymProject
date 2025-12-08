@@ -89,7 +89,7 @@ const LoginPage = () => {
           </ul>
         </div>
 
-        <Button type="submit">{loading ? "Registering..." : "Register"}</Button>
+        <Button type="submit">{loading ? "Logging in..." : "Login"}</Button>
       </form>
     </div>
   );

@@ -6,6 +6,14 @@ import "./products.style.css";
 
 function AddProductPage() {
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/me", { credentials: "include" })
+      .then((res) => res.json())
+      .then((data) => setCurrentUser(data.user))
+      .catch((err) => console.error(err));
+  }, []);
 
   const [product, setProduct] = useState({
     name: "",
@@ -18,6 +26,7 @@ function AddProductPage() {
     "http://localhost:3000/products",
     {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,6 +55,13 @@ function AddProductPage() {
     },
     [product, refetch]
   );
+
+  if (
+    !currentUser ||
+    !["admin", "seller", "staff"].includes(currentUser.roles)
+  ) {
+    return <p>You do not have permission to access this page.</p>;
+  }
 
   return (
     <div className="AddProductForm">

@@ -68,16 +68,8 @@ productsRoute.post(
   createProductRules,
   authorize(["admin", "seller"]),
   async (req, res) => {
-    const currentUser = req.account;
-
-    if (currentUser.roles(!includes("admin", "seller"))) {
-      return res.status(403).send({
-        errorMessage: "User does not have valid authentication to add products",
-        currentRoles: currentUser.roles,
-      });
-    }
-
     const newProduct = req.body;
+
     const addedProduct = await ProductModel.create({
       name: newProduct.name,
       category: newProduct.category,
@@ -99,16 +91,8 @@ productsRoute.post(
 productsRoute.put(
   "/products/:id",
   updateProductRules,
-  authorize(["admin", "seller", "staff"]),
+  authorize(["admin", "staff"]),
   async (req, res) => {
-    const currentUser = req.account;
-
-    if (currentUser.roles(!includes("admin", "seller"))) {
-      return res.status(403).send({
-        errorMessage: "User does not have valid authentication to add products",
-        currentRoles: currentUser.roles,
-      });
-    }
 
     const productID = req.params.id;
     const newProduct = req.body;
@@ -143,16 +127,8 @@ productsRoute.put(
 
 productsRoute.delete(
   "/products/:id",
-  authorize(["admin", "seller", "staff"]),
+  authorize(["admin", "staff"]),
   async (req, res) => {
-    const currentUser = req.account;
-
-    if (currentUser.roles(!includes("admin", "seller"))) {
-      return res.status(403).send({
-        errorMessage: "User does not have valid authentication to add products",
-        currentRoles: currentUser.roles,
-      });
-    }
 
     const productID = req.params.id;
     const foundProduct = await ProductModel.findById(productID);

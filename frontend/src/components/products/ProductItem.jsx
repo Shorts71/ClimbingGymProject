@@ -1,11 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useApi from "../shared/API";
 import Button from "../shared/button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ProductItem = (props) => {
   const { product, onAddToCartClick } = props;
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log("Current User: ", currentUser);
+  
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:3000/me", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setCurrentUser(data.user))
+      .catch((err) => console.error(err));
+  }, []);
+
+  const canEditOrDelete =
+    currentUser?.roles && ["admin", "staff"].includes(currentUser.roles);
+
+  console.log("Can edit/delete?", canEditOrDelete, "Current user:", currentUser);
 
   const editProduct = () => {
     navigate(`/edit-product/${product._id}`);
@@ -22,6 +39,10 @@ const ProductItem = (props) => {
     try {
       const res = await fetch(`http://localhost:3000/products/${product._id}`, {
         method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (!res.ok) {
@@ -62,8 +83,13 @@ const ProductItem = (props) => {
       <p style={{ fontSize: 20 }}>
         <strong>Rating: {product.rating}/10</strong>
       </p>
-      <Button text="Edit" onClick={editProduct} />
-      <Button text="Delete" onClick={deleteProduct} />
+      {canEditOrDelete && (
+        <>
+        <Button text="Edit" onClick={editProduct} />
+        <Button text="Delete" onClick={deleteProduct} />
+        </>
+      )}
+      
       <Button text="Add to Cart" onClick={() => onAddToCartClick(product)} />
     </div>
   );

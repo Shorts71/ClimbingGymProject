@@ -16,6 +16,7 @@ const OTPPage = () => {
     "http://localhost:3000/users/verify-login",
     {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
