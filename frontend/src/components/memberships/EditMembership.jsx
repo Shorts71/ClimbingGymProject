@@ -9,7 +9,7 @@ function EditMembershipPage() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_API_URL}/me`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setCurrentUser(data.user))
       .catch((err) => console.error(err));
@@ -25,7 +25,7 @@ function EditMembershipPage() {
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    `http://localhost:3000/memberships/${id}`,
+    `${import.meta.env.VITE_API_URL}/memberships/${id}`,
     {
       method: "PUT",
       credentials: "include",
@@ -40,7 +40,7 @@ function EditMembershipPage() {
     if (!id) {
       return;
     }
-    fetch(`http://localhost:3000/memberships/${id}`)
+    fetch(`${import.meta.env.API_URL}/memberships/${id}`)
       .then((res) => res.json())
       .then((data) => setMembership(data));
   }, [id]);

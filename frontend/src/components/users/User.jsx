@@ -8,7 +8,7 @@ const User = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -32,7 +32,7 @@ const User = (props) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/users/${user._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {

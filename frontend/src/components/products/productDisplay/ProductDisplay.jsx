@@ -9,7 +9,7 @@ const ProductDisplay = (props) => {
   const [currentProduct, setCurrentProduct] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}products/${id}`)
       .then((res) => res.json())
       .then((data) => setCurrentProduct(data))
       .catch((err) => console.log(err));

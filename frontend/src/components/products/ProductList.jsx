@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const ProductList = (props) => {
+  console.log("API URL", import.meta.env.VITE_API_URL);
+  
   const {
     categoryOptions,
     priceOptions,
@@ -15,22 +17,39 @@ const ProductList = (props) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
+  // useEffect(() => {
+  //   fetch(`${import.meta.env.VITE_API_URL}/me`, {
+  //     credentials: "include",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setCurrentUser(data.user))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => setCurrentUser(data.user))
-      .catch((err) => console.error(err));
+    }).then(async (res) => {
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+        setCurrentUser(data.user);
+      } catch {
+        console.error("Not JSON:", text);
+      }
+    });
   }, []);
 
   const canAdd =
     currentUser?.roles &&
     ["admin", "seller", "staff"].includes(currentUser.roles);
 
-  const { loading, data, error } = useApi("http://localhost:3000/products", {
-    method: "GET",
-  });
+  const { loading, data, error } = useApi(
+    `${import.meta.env.VITE_API_URL}/products`,
+    {
+      method: "GET",
+    }
+  );
 
   if (loading) {
     return (

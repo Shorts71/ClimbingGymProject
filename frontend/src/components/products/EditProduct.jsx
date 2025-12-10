@@ -9,7 +9,7 @@ function EditProductPage() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_API_URL}/me`, { credentials: "include" })
       .then(res => res.json())
       .then(data => setCurrentUser(data.user))
       .catch(err => console.error(err));
@@ -18,7 +18,7 @@ function EditProductPage() {
   const { id } = useParams();
 
   const { loading, data, error, formError, refetch } = useApi(
-    id ? `http://localhost:3000/products/${id}` : null,
+    id ? `${import.meta.env.VITE_API_URL}/products/${id}` : null,
     {
       method: "PUT",
       credentials: "include",
@@ -33,7 +33,7 @@ function EditProductPage() {
     if (!id) {
       return;
     }
-    fetch(`http://localhost:3000/products/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id]);

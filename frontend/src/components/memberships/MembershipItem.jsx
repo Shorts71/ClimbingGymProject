@@ -8,7 +8,7 @@ const MembershipItem = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -33,7 +33,7 @@ const MembershipItem = (props) => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/memberships/${membership._id}`,
+        `${import.meta.env.VITE_API_URL}/memberships/${membership._id}`,
         {
           method: "DELETE",
           credentials: "include",

@@ -10,7 +10,7 @@ const UserList = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -20,7 +20,7 @@ const UserList = (props) => {
 
   const canAdd = currentUser?.roles && ["admin"].includes(currentUser.roles);
 
-  const { loading, data, error } = useApi("http://localhost:3000/users", {
+  const { loading, data, error } = useApi(`${import.meta.env.VITE_API_URL}users`, {
     method: "GET",
   });
 

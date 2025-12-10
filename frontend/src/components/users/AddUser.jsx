@@ -9,7 +9,7 @@ function AddUser() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", { credentials: "include" })
+    fetch(`${import.meta.env.VITE_API_URL}/me`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setCurrentUser(data.user))
       .catch((err) => console.error(err));
@@ -25,7 +25,7 @@ function AddUser() {
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    "http://localhost:3000/users",
+    `${import.meta.env.VITE_API_URL}/users`,
     {
       method: "POST",
       credentials: "include",

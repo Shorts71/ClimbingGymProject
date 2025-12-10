@@ -11,7 +11,7 @@ const ProductItem = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -37,7 +37,7 @@ const ProductItem = (props) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/products/${product._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/products/${product._id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {

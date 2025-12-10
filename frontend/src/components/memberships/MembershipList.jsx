@@ -9,7 +9,7 @@ const MembershipList = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -20,7 +20,7 @@ const MembershipList = () => {
   const canAdd =
     currentUser?.roles && ["admin", "staff"].includes(currentUser.roles);
 
-  const { loading, data, error } = useApi("http://localhost:3000/memberships", {
+  const { loading, data, error } = useApi(`${import.meta.env.VITE_API_URL}/memberships`, {
     method: "GET",
   });
 
