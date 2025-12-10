@@ -4,6 +4,8 @@ const updateProductRules = require("./middlewares/update-product-rules");
 const authorize = require("../../shared/middlewares/authorize");
 
 const ProductModel = require("./products-model");
+const upload = require("../../shared/middlewares/upload");
+const { cloudinary } = require("../../shared/cloudinary-utils");
 
 const productsRoute = Router();
 
@@ -76,7 +78,6 @@ productsRoute.post(
       rating: newProduct.rating,
       description: newProduct.description,
       weight: newProduct.weight,
-      // image: newProduct.image,
       price: newProduct.price,
     });
 
@@ -88,12 +89,46 @@ productsRoute.post(
   }
 );
 
+productsRoute.post(
+  "/upload-image",
+  upload.single("image"),
+  async (req, res) => {
+    const productID = req.body.id;
+    if (!productID) return res.status(400).send(`Required product id`);
+    if (!req.file) return res.status(400).send(`Required product image`);
+    const foundProduct = await ProductModel.findById(productID);
+    if (!foundProduct) {
+      return res.status(404).send(`Product with ${productID} doesn't exist`);
+    }
+
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "Peak-images" },
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ error: "Failed to upload product image" });
+          return;
+        }
+
+        foundProduct.imageUrl = result.secure_url;
+        foundProduct.save();
+
+        res.json({
+          message: "Image uploaded successfully",
+          product: foundProduct,
+        });
+      }
+    );
+
+    stream.end(req.file.buffer);
+  }
+);
+
 productsRoute.put(
   "/products/:id",
   updateProductRules,
   authorize(["admin", "staff"]),
   async (req, res) => {
-
     const productID = req.params.id;
     const newProduct = req.body;
     const foundProduct = await ProductModel.findById(productID);
@@ -112,7 +147,6 @@ productsRoute.put(
           description: newProduct.description,
           weight: newProduct.weight,
           price: newProduct.price,
-          // image: newProduct.image,
         },
       },
       { new: true }
@@ -129,7 +163,6 @@ productsRoute.delete(
   "/products/:id",
   authorize(["admin", "staff"]),
   async (req, res) => {
-
     const productID = req.params.id;
     const foundProduct = await ProductModel.findById(productID);
     if (!foundProduct) {

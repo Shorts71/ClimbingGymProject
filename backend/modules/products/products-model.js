@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema({
   },
   weight: { type: Number, required: true, min: 0 },
   price: { type: Number, required: true, min: 0, default: 0 },
-//   image: { type: Image, required: true, },
+  imageUrl: { type: String, required: false },
 });
 
 ProductSchema.index({ name: "text", description: "text" });

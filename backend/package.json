@@ -11,10 +11,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "cloudinary": "^2.8.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "mongoose": "^8.19.1",
+    "multer": "^2.0.2",
     "vite": "^6.4.1"
   },
   "devDependencies": {
