@@ -2,7 +2,7 @@ import ProductItem from "./ProductItem";
 import useApi from "../shared/API";
 import Button from "../shared/button";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const ProductList = (props) => {
   const {
@@ -77,10 +77,12 @@ const ProductList = (props) => {
       <div className="CRUDBUTTONS">
         {canAdd && (
           <>
-            <Button text="Add Product" onClick={() => navigate("/add-products")} />
+            <Button
+              text="Add Product"
+              onClick={() => navigate("/add-products")}
+            />
           </>
         )}
-        
       </div>
       <div id="product-list-container">
         {products.map((product, index) => (

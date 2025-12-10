@@ -1,0 +1,13 @@
+.membership {
+    border: solid black 2px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#membership-list-container {
+    width: 40%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
