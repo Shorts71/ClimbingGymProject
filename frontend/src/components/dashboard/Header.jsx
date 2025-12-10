@@ -27,7 +27,7 @@ const Header = (props) => {
         <div className="title">
           <h2>
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-              The Peak Climbing Gym Shop
+              The Peak Climbing Gym
             </Link>
           </h2>
         </div>
