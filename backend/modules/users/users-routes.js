@@ -240,11 +240,14 @@ usersRoute.post("/users/login", loginRules, async (req, res) => {
     `Here's your OTP to verify your login: ${code}`
   );
   res.send({ message: "OTP is sent via email" });
+  console.log("OTP sent.");
 });
 
 // Verify Login with OTP
 
 usersRoute.post("/users/verify-login", verifyLoginRules, async (req, res) => {
+  console.log("Verification path reached.");
+
   const { email, otp } = req.body;
   const foundUser = await UserModel.findOne({ email });
   if (!foundUser) {
@@ -262,13 +265,13 @@ usersRoute.post("/users/verify-login", verifyLoginRules, async (req, res) => {
     }
     const token = encodeToken(user);
     res.cookie("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 1000 * 60 * 60 * 24,
-  });
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24,
+    });
 
-  res.json({ user });
+    res.json({ user });
   }
 });
 
@@ -278,7 +281,8 @@ usersRoute.get("/me", async (req, res) => {
     if (!token) return res.status(401).json({ errorMessage: "Not logged in" });
 
     const decoded = decodeToken(token);
-    if (!decoded) return res.status(401).json({ errorMessage: "Invalid token" });
+    if (!decoded)
+      return res.status(401).json({ errorMessage: "Invalid token" });
 
     res.json({ user: decoded });
   } catch (err) {
