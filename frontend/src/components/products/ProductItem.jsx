@@ -11,7 +11,7 @@ const ProductItem = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${import.meta.env.API_URL}/me`, {
+    fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
     })
       .then((res) => res.json())
