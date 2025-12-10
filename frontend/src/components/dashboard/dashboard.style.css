@@ -8,6 +8,13 @@
 }
 
 .navlink {
+    text-decoration: none;
     padding: 0px 20px;
     color: white;
+}
+
+.loginNavLink {
+    text-decoration: none;
+    color: white;
+    padding: 10px 10px 10px 10px;
 }

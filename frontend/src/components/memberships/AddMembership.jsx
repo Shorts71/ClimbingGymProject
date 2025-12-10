@@ -2,9 +2,9 @@ import { useCallback, useState, useEffect } from "react";
 import Button from "../shared/button";
 import useApi from "../shared/API";
 import { useNavigate } from "react-router-dom";
-import "./products.style.css";
+import "./memberships.style.css";
 
-function AddProductPage() {
+function AddMembershipPage() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -15,16 +15,15 @@ function AddProductPage() {
       .catch((err) => console.error(err));
   }, []);
 
-  const [product, setProduct] = useState({
+  const [membership, setMembership] = useState({
     name: "",
-    category: "",
-    price: "",
-    description: "",
-    image: "",
+    duration: "",
+    cost: "",
+    rentalInclusion: "",
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    "http://localhost:3000/products",
+    "http://localhost:3000/memberships",
     {
       method: "POST",
       credentials: "include",
@@ -36,39 +35,37 @@ function AddProductPage() {
   );
 
   useEffect(() => {
-    if (!data) return;
-    alert(`Successfully added new product with id ${data._id}`);
-    navigate(`/products-image/${data._id}`);
-  }, [data]);
+    if (!data) {
+      return;
+    }
+    alert("Membership successfully added!");
+    navigate("/memberships");
+  }, [data, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduct((prev) => ({ ...prev, [name]: value }));
+    setMembership({ ...membership, [name]: value });
   };
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-
-      const body = { ...product };
+      const body = membership;
       refetch(body);
     },
-    [product, refetch]
+    [membership, refetch]
   );
 
-  if (
-    !currentUser ||
-    !["admin", "seller", "staff"].includes(currentUser.roles)
-  ) {
+  if (!currentUser || !["admin", "staff"].includes(currentUser.roles)) {
     return <p>You do not have permission to access this page.</p>;
   }
 
   return (
-    <div className="AddProductForm">
-      <h1>Product Form</h1>
+    <div className="AddMembershipForm">
+      <h1>Membership Form</h1>
 
-      <form className="productForm" onSubmit={handleSubmit}>
-        <label htmlFor="name">Product Name</label>
+      <form className="membershipForm" onSubmit={handleSubmit}>
+        <label htmlFor="name">Membership Name</label>
         <br />
         <input
           type="text"
@@ -81,27 +78,12 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="description">Description</label>
-        <br />
-        <textarea
-          id="description"
-          name="description"
-          rows="4"
-          style={{ resize: "none", height: "400px", width: "600px" }}
-          onChange={handleChange}
-          disabled={loading}
-          required
-          className="inputfield"
-        ></textarea>
-        <br />
-
-        <label htmlFor="price">Price ($)</label>
+        <label htmlFor="duration">Duration</label>
         <br />
         <input
           type="number"
-          id="price"
-          name="price"
-          step="0.01"
+          id="duration"
+          name="duration"
           onChange={handleChange}
           disabled={loading}
           required
@@ -109,13 +91,13 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="weight">Weight (g)</label>
+        <label htmlFor="cost">Price ($)</label>
         <br />
         <input
-          type="text"
-          id="weight"
-          name="weight"
-          step="0.1"
+          type="number"
+          id="cost"
+          name="cost"
+          step="1"
           onChange={handleChange}
           disabled={loading}
           required
@@ -123,36 +105,20 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="category">Category</label>
+        <label htmlFor="rentalInclusion">Rentals</label>
         <br />
         <select
-          id="category"
-          name="category"
+          id="rentalInclusion"
+          name="rentalInclusion"
           disabled={loading}
           onChange={handleChange}
           required
           className="inputfield"
         >
-          <option value="">Select a category...</option>
-          <option value="Climbing Shoes">Climbing Shoes</option>
-          <option value="Harness">Harness</option>
-          <option value="Belay Gear">Belay Gear</option>
-          <option value="Chalk">Chalk</option>
+          <option value="">Specify inclusion...</option>
+          <option value={false}>Not included</option>
+          <option value={true}>Included</option>
         </select>
-        <br />
-
-        <label htmlFor="rating">Rating</label>
-        <br />
-        <input
-          type="number"
-          id="rating"
-          name="rating"
-          step="0.1"
-          onChange={handleChange}
-          disabled={loading}
-          required
-          className="inputfield"
-        />
         <br />
 
         <div
@@ -173,4 +139,4 @@ function AddProductPage() {
   );
 }
 
-export default AddProductPage;
+export default AddMembershipPage;

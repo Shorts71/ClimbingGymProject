@@ -40,28 +40,42 @@ function useApi(url, options = {}, { auto = true } = {}) {
   const fetchApi = useCallback(
     async (overrideBody) => {
       dispatch({ type: "LOADING" });
-      let body = undefined;
-      if (overrideBody) body = JSON.stringify(overrideBody);
-      if (options.body) body = JSON.stringify(options.body);
+
+      let body = overrideBody ?? options.body;
+
+      if (!(body instanceof FormData) && body != null) {
+        body = JSON.stringify(body);
+      }
+
+      const headers = { ...options.headers };
+      if (body instanceof FormData) {
+        delete headers["Content-Type"];
+      }
+
       try {
         const res = await fetch(url, {
           ...options,
           credentials: "include",
-          headers: {
-            ...options.headers,
-          },
+          headers,
           body,
         });
+
         const parsedBody = await res.json();
+
         if (res.ok) {
           dispatch({ type: "SUCCESS", payload: parsedBody });
-          return;
+          return parsedBody;
         }
+
         if (res.status === 400) {
-          dispatch({ type: "FORM_ERROR", payload: parsedBody.errors });
+          dispatch({ type: "FORM_ERROR", payload: parsedBody.errors ?? [] });
           return;
         }
-        dispatch({ type: "HTTP_ERROR", payload: parsedBody.errorMessage });
+
+        dispatch({
+          type: "HTTP_ERROR",
+          payload: parsedBody.errorMessage ?? "Unknown error",
+        });
       } catch (err) {
         dispatch({ type: "NETWORK_ERROR", payload: err.message });
       }

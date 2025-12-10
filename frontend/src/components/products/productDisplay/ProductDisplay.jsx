@@ -25,7 +25,7 @@ const ProductDisplay = (props) => {
         <div className="ProductDisplayImage">
           <img
             style={{ width: 400, height: "auto" }}
-            src={currentProduct.image}
+            src={currentProduct.imageUrl}
           />
         </div>
         <div className="ProductMainDetails">

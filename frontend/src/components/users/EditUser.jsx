@@ -1,10 +1,10 @@
 import { useCallback, useState, useEffect } from "react";
 import Button from "../shared/button";
 import useApi from "../shared/API";
-import { useNavigate } from "react-router-dom";
-import "./products.style.css";
+import { useNavigate, useParams } from "react-router-dom";
+import "./users.style.css";
 
-function AddProductPage() {
+function EditUser() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -15,18 +15,21 @@ function AddProductPage() {
       .catch((err) => console.error(err));
   }, []);
 
-  const [product, setProduct] = useState({
+  const { id } = useParams();
+
+  const [user, setUser] = useState({
     name: "",
-    category: "",
-    price: "",
-    description: "",
-    image: "",
+    email: "",
+    phone: "",
+    password: "",
+    address: "",
+    roles: "",
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    "http://localhost:3000/products",
+    `http://localhost:3000/users/${id}`,
     {
-      method: "POST",
+      method: "PUT",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -36,39 +39,45 @@ function AddProductPage() {
   );
 
   useEffect(() => {
-    if (!data) return;
-    alert(`Successfully added new product with id ${data._id}`);
-    navigate(`/products-image/${data._id}`);
-  }, [data]);
+    if (!id) {
+        return;
+    }
+    fetch(`http://localhost:3000/users/${id}`)
+        .then((res) => res.json())
+        .then((data) => setUser(data))
+  }, [id]);
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    alert("User successfully updated!");
+    navigate("/users");
+  }, [data, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduct((prev) => ({ ...prev, [name]: value }));
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-
-      const body = { ...product };
-      refetch(body);
+      refetch(user);
     },
-    [product, refetch]
+    [user, refetch]
   );
 
-  if (
-    !currentUser ||
-    !["admin", "seller", "staff"].includes(currentUser.roles)
-  ) {
+  if (!currentUser || !["admin"].includes(currentUser.roles)) {
     return <p>You do not have permission to access this page.</p>;
   }
 
   return (
-    <div className="AddProductForm">
-      <h1>Product Form</h1>
+    <div className="AddUserForm">
+      <h1>Membership Form</h1>
 
-      <form className="productForm" onSubmit={handleSubmit}>
-        <label htmlFor="name">Product Name</label>
+      <form className="userForm" onSubmit={handleSubmit}>
+        <label htmlFor="name">Username</label>
         <br />
         <input
           type="text"
@@ -81,27 +90,12 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="description">Description</label>
-        <br />
-        <textarea
-          id="description"
-          name="description"
-          rows="4"
-          style={{ resize: "none", height: "400px", width: "600px" }}
-          onChange={handleChange}
-          disabled={loading}
-          required
-          className="inputfield"
-        ></textarea>
-        <br />
-
-        <label htmlFor="price">Price ($)</label>
+        <label htmlFor="email">Email Address</label>
         <br />
         <input
-          type="number"
-          id="price"
-          name="price"
-          step="0.01"
+          type="email"
+          id="email"
+          name="email"
           onChange={handleChange}
           disabled={loading}
           required
@@ -109,13 +103,12 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="weight">Weight (g)</label>
+        <label htmlFor="phone">Phone #</label>
         <br />
         <input
-          type="text"
-          id="weight"
-          name="weight"
-          step="0.1"
+          type="tel"
+          id="phone"
+          name="phone"
           onChange={handleChange}
           disabled={loading}
           required
@@ -123,36 +116,34 @@ function AddProductPage() {
         />
         <br />
 
-        <label htmlFor="category">Category</label>
+        <label htmlFor="password">Password</label>
+        <br />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          onChange={handleChange}
+          disabled={loading}
+          required
+          className="inputfield"
+        />
+        <br />
+
+        <label htmlFor="roles">Role</label>
         <br />
         <select
-          id="category"
-          name="category"
+          id="roles"
+          name="roles"
           disabled={loading}
           onChange={handleChange}
           required
           className="inputfield"
         >
-          <option value="">Select a category...</option>
-          <option value="Climbing Shoes">Climbing Shoes</option>
-          <option value="Harness">Harness</option>
-          <option value="Belay Gear">Belay Gear</option>
-          <option value="Chalk">Chalk</option>
+          <option value="">Choose a role...</option>
+          <option value="staff">Staff Member</option>
+          <option value="seller">Seller</option>
+          <option value="admin">Admin</option>
         </select>
-        <br />
-
-        <label htmlFor="rating">Rating</label>
-        <br />
-        <input
-          type="number"
-          id="rating"
-          name="rating"
-          step="0.1"
-          onChange={handleChange}
-          disabled={loading}
-          required
-          className="inputfield"
-        />
         <br />
 
         <div
@@ -173,4 +164,4 @@ function AddProductPage() {
   );
 }
 
-export default AddProductPage;
+export default EditUser;

@@ -64,7 +64,7 @@ const ProductItem = (props) => {
       <Link to={`/product/${product._id}`}>
         <img
           style={{ width: 200, height: "auto" }}
-          src={product.image}
+          src={product.imageUrl}
           alt={product.name}
         />
       </Link>

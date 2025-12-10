@@ -17,15 +17,6 @@ function EditProductPage() {
 
   const { id } = useParams();
 
-  const [product, setProduct] = useState({
-    name: "",
-    category: "",
-    price: "",
-    description: "",
-    weight: "",
-    rating: "",
-  });
-
   const { loading, data, error, formError, refetch } = useApi(
     id ? `http://localhost:3000/products/${id}` : null,
     {
@@ -47,12 +38,21 @@ function EditProductPage() {
       .then((data) => setProduct(data));
   }, [id]);
 
+  const [product, setProduct] = useState({
+    name: "",
+    category: "",
+    price: "",
+    description: "",
+    weight: "",
+    rating: "",
+  });
+
   useEffect(() => {
     if (!data) {
       return;
     }
-    alert("Product successfully updated!");
-    navigate("/products");
+    alert("Product details successfully updated!");
+    navigate(`/products-image/${data._id}`);
   }, [data, navigate]);
 
   const handleChange = (e) => {
@@ -85,6 +85,7 @@ function EditProductPage() {
           name="name"
           onChange={handleChange}
           disabled={loading}
+          value={product.name}
           required
           className="inputfield"
         />
@@ -99,6 +100,7 @@ function EditProductPage() {
           style={{ resize: "none", height: "400px", width: "600px" }}
           onChange={handleChange}
           disabled={loading}
+          value={product.description}
           required
           className="inputfield"
         ></textarea>
@@ -113,6 +115,7 @@ function EditProductPage() {
           step="0.01"
           onChange={handleChange}
           disabled={loading}
+          value={product.price}
           required
           className="inputfield"
         />
@@ -127,6 +130,7 @@ function EditProductPage() {
           step="0.1"
           onChange={handleChange}
           disabled={loading}
+          value={product.weight}
           required
           className="inputfield"
         />
@@ -138,6 +142,7 @@ function EditProductPage() {
           id="category"
           name="category"
           disabled={loading}
+          value={product.category}
           onChange={handleChange}
           required
           className="inputfield"
@@ -159,22 +164,11 @@ function EditProductPage() {
           step="0.1"
           onChange={handleChange}
           disabled={loading}
+          value={product.rating}
           required
           className="inputfield"
         />
         <br />
-
-        {/* <label htmlFor="image">Image</label><br/>
-                <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={handleChange}
-                disabled={loading}
-                required
-                className="inputfield"
-                /><br/> */}
 
         <div
           className="error"
