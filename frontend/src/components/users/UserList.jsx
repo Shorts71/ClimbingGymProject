@@ -4,7 +4,8 @@ import Button from "../shared/button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const UserList = () => {
+const UserList = (props) => {
+  const { userOptions } = props;
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -17,8 +18,7 @@ const UserList = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  const canAdd =
-    currentUser?.roles && ["admin"].includes(currentUser.roles);
+  const canAdd = currentUser?.roles && ["admin"].includes(currentUser.roles);
 
   const { loading, data, error } = useApi("http://localhost:3000/users", {
     method: "GET",
@@ -42,21 +42,22 @@ const UserList = () => {
 
   let users = Array.isArray(data) ? data : data?.data || [];
 
+  if (userOptions.length > 0) {
+    users = users.filter((user) => userOptions.includes(user.roles));
+  }
+
   console.log("Users:", data);
-  
-    if (!currentUser || !["admin", "staff"].includes(currentUser.roles)) {
-        return <p>You do not have permission to access this page.</p>;
-    }
+
+  if (!currentUser || !["admin", "staff"].includes(currentUser.roles)) {
+    return <p>You do not have permission to access this page.</p>;
+  }
 
   return (
     <>
       <div className="CRUDBUTTONS">
         {canAdd && (
           <>
-            <Button
-              text="Add User"
-              onClick={() => navigate("/add-users")}
-            />
+            <Button text="Add User" onClick={() => navigate("/add-users")} />
           </>
         )}
       </div>

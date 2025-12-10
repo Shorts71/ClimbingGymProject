@@ -1,0 +1,42 @@
+.user {
+    border: solid black 2px;
+    width: 500px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+#user-list-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#user-page-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.UserSortBar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 8%;
+    margin: 0 auto;
+    text-align: center;
+    border: solid black 2px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.user-check-box {
+    padding: 10px;
+    text-align: left;
+}
