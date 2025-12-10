@@ -138,6 +138,7 @@ usersRoute.put(
           phone: newUser.phone,
           password: newUser.password,
           address: newUser.address,
+          roles: newUser.roles,
         },
       },
       { new: true }
