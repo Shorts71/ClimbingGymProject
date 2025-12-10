@@ -12,7 +12,7 @@ function UploadImage() {
   const [preview, setPreview] = useState(null);
 
   const { loading, data, error, refetch } = useApi(
-    `http://localhost:3000/upload-image`,
+    `${import.meta.env.VITE_API_URL}/upload-image`,
     { method: "POST" },
     { auto: false }
   );
