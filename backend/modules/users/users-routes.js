@@ -16,7 +16,7 @@ const { decodeToken } = require("../../shared/jwt-utils");
 // OTP/EMail
 const { randomNumberOfDigits } = require("../../shared/compute-utils");
 const OTPModel = require("../otp-model");
-const sendEmail = require("../../shared/email-utils");
+const sendEmail = require("../../shared/send-utils");
 
 // Get all users (for admin only)
 
