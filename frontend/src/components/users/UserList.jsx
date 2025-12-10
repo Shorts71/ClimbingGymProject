@@ -20,7 +20,7 @@ const UserList = (props) => {
 
   const canAdd = currentUser?.roles && ["admin"].includes(currentUser.roles);
 
-  const { loading, data, error } = useApi(`${import.meta.env.VITE_API_URL}users`, {
+  const { loading, data, error } = useApi(`${import.meta.env.VITE_API_URL}/users`, {
     method: "GET",
   });
 
