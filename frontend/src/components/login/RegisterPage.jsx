@@ -15,7 +15,7 @@ const RegisterPage = () => {
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    "http://localhost:3000/users/register",
+    `${import.meta.env.VITE_API_URL}/users/register`,
     {
       method: "POST",
       headers: {

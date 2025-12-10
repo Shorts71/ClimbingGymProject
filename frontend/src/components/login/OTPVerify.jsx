@@ -13,7 +13,7 @@ const OTPPage = () => {
   });
 
   const { loading, data, error, formError, refetch } = useApi(
-    "http://localhost:3000/users/verify-login",
+    `${import.meta.env.VITE_API_URL}/users/verify-login`,
     {
       method: "POST",
       credentials: "include",
