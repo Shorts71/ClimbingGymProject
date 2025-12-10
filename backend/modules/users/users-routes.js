@@ -115,6 +115,7 @@ usersRoute.put(
   async (req, res) => {
     const currentUser = req.account;
     const userID = req.params.id;
+    const newUser = req.body;
 
     const isAdmin = req.account.roles.includes("admin");
     if (!isAdmin && newUser.roles) {
@@ -132,11 +133,11 @@ usersRoute.put(
       userID,
       {
         $set: {
-          name: foundUser.name,
-          email: foundUser.email,
-          phone: foundUser.phone,
-          password: foundUser.password,
-          address: foundUser.address,
+          name: newUser.name,
+          email: newUser.email,
+          phone: newUser.phone,
+          password: newUser.password,
+          address: newUser.address,
         },
       },
       { new: true }
