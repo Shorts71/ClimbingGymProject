@@ -11,9 +11,9 @@ const port = 3000;
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+// app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cors({ origin: "https://climbing-gym-project.vercel.app", credentials: true }));
-app.use(cors({ origin: "https://climbinggymproject.onrender.com", credentials: true }));
+// app.use(cors({ origin: "https://climbinggymproject.onrender.com", credentials: true }));
 
 const { productsRoute } = require("./modules/products/products-routes");
 const { usersRoute } = require("./modules/users/users-routes");
