@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/button";
 import useApi from "../shared/API";
+import './login.styles.css'
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -48,12 +49,12 @@ const LoginPage = () => {
   );
 
   return (
-    <div>
+    <div id="register-page-container">
       <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
 
-        <label htmlFor="email">Email Address</label>
+        <label htmlFor="email" className="registerLabel">Email Address</label>
         <br />
         <input
           type="email"
@@ -62,10 +63,11 @@ const LoginPage = () => {
           onChange={handleChange}
           disabled={loading}
           required
+          className="registerInput"
         ></input>
         <br />
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="registerLabel">Password</label>
         <br />
         <input
           type="password"
@@ -74,6 +76,7 @@ const LoginPage = () => {
           onChange={handleChange}
           disabled={loading}
           required
+          className="registerInput"
         />
         <br />
 

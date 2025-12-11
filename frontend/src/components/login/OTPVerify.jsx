@@ -49,11 +49,11 @@ const OTPPage = () => {
   );
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div id="register-page-container">
+      <h1>Authentication</h1>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="otp">OTP</label>
+        <label htmlFor="otp" className="registerLabel">OTP</label>
         <br />
         <input
           type="text"
@@ -62,6 +62,7 @@ const OTPPage = () => {
           onChange={handleChange}
           disabled={loading}
           required
+          className="registerInput"
         />
         <br />
 

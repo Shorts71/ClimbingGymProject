@@ -1,0 +1,19 @@
+#register-page-container {
+    width: 30%;
+    margin: 20px auto;
+    text-align: center;
+    border: solid black 2px;
+    border-radius: 20px;
+}
+
+.registerInput {
+    width: 250px;
+    text-align: center;
+    height: 50px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.registerLabel {
+    font-weight: bold;
+}
