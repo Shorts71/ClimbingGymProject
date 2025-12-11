@@ -37,7 +37,7 @@ function AddProductPage() {
 
   useEffect(() => {
     if (!data) return;
-    alert(`Successfully added new product with id ${data._id}`);
+    alert(`Successfully added new product.`);
     navigate(`/products-image/${data._id}`);
   }, [data]);
 
