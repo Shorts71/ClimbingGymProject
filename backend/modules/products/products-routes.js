@@ -11,37 +11,15 @@ const productsRoute = Router();
 
 productsRoute.get("/products", async (req, res, next) => {
   try {
-    const search = req.query.search || "";
     const page = parseInt(req.query.page) || 1;
-    const limit = 20;
+    const limit = 9;
 
-    let products, totalCount;
+    const products = await ProductModel.find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
 
-    if (!search) {
-      products = await ProductModel.find()
-        .sort({ createdAt: -1 })
-        .skip((page - 1) * limit)
-        .limit(limit);
-      totalCount = await ProductModel.countDocuments();
-    } else {
-      const query = {
-        $or: [
-          { name: { $regex: search, $options: "i" } },
-          { description: { $regex: search, $options: "i" } },
-        ],
-      };
-      products = await ProductModel.find(query, {
-        name: 1,
-        price: 1,
-        color: 1,
-        rating: 1,
-      })
-        .sort({ createdAt: -1 })
-        .skip((page - 1) * limit)
-        .limit(limit);
-
-      totalCount = await ProductModel.countDocuments(query);
-    }
+    const totalCount = await ProductModel.countDocuments();
 
     return res.json({
       currentPage: page,
