@@ -17,9 +17,6 @@ const ProductList = (props) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
-  const [page, setPage] = useState(1);
-  const limit = 9;
-
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/me`, {
       credentials: "include",
@@ -39,7 +36,7 @@ const ProductList = (props) => {
     ["admin", "seller", "staff"].includes(currentUser.roles);
 
   const { loading, data, error } = useApi(
-    `${import.meta.env.VITE_API_URL}/products?page=${page}&limit=${limit}`,
+    `${import.meta.env.VITE_API_URL}/products`,
     {
       method: "GET",
     }
@@ -106,18 +103,6 @@ const ProductList = (props) => {
             onAddToCartClick={onAddToCartClick}
           />
         ))}
-      </div>
-      <div className="pagination">
-        <Button text="Previous" onClick={() => page > 1 && setPage(page - 1)} />
-
-        <span>Page {page}</span>
-
-        <Button
-          text="Next"
-          onClick={() =>
-            data && data.data.length === limit && setPage(page + 1)
-          }
-        />
       </div>
     </>
   );
