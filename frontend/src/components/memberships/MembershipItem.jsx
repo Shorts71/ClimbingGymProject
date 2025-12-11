@@ -50,6 +50,7 @@ const MembershipItem = (props) => {
 
       alert("Membership deleted.");
       navigate("/memberships");
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert("Deletion process was interrupted...");

@@ -47,6 +47,7 @@ const User = (props) => {
 
       alert("User deleted.");
       navigate("/users");
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert("Deletion process was interrupted...");

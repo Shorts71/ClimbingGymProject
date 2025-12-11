@@ -52,6 +52,7 @@ const ProductItem = (props) => {
 
       alert("Product deleted.");
       navigate("/products");
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert("Deletion process was interrupted...");
